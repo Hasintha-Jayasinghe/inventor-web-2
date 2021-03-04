@@ -7,3 +7,19 @@ export interface BaseUser {
   level: string;
   uid: string;
 }
+
+export interface BaseClub {
+  name: string;
+  headerImg: string;
+  id: string;
+}
+
+export interface Club {
+  name: string;
+  id: string;
+  headerImg: string;
+  description: string;
+  image1: string;
+  members: string[];
+  image2: string;
+}

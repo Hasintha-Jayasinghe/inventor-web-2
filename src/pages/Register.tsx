@@ -46,7 +46,7 @@ const Register = () => {
   }, [history]);
 
   return (
-    <div className="h-screen w-full flex justify-center items-center bg-blue-400">
+    <div className="h-screen w-full flex justify-center items-center bg-gray-800">
       <div className="w-full max-w-md bg-gray-800">
         <Formik
           initialValues={{

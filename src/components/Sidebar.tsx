@@ -9,7 +9,7 @@ const Sidebar = () => {
   return (
     <div className="flex self-start justify-around flex-col bg-gray-800 w-14 h-screen">
       <div className="flex flex-col self-start top-0 justify-around w-14 h-3/6">
-        <SidebarItem tooltip="Home">
+        <SidebarItem tooltip="Home" onClick={() => history.push('/')}>
           <svg
             className="w-6 h-6"
             fill="none"
@@ -25,7 +25,7 @@ const Sidebar = () => {
             />
           </svg>
         </SidebarItem>
-        <SidebarItem tooltip="Clubs">
+        <SidebarItem tooltip="Clubs" onClick={() => history.push('/clubs')}>
           <svg
             className="w-6 h-6"
             fill="none"
@@ -38,6 +38,22 @@ const Sidebar = () => {
               strokeLinejoin="round"
               strokeWidth={2}
               d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+            />
+          </svg>
+        </SidebarItem>
+        <SidebarItem tooltip="Articles">
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="white"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
             />
           </svg>
         </SidebarItem>

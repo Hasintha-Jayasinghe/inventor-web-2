@@ -8,7 +8,7 @@ interface Props {
 
 const UserDetails: React.FC<Props> = ({ firstName, lastName, email }) => {
   return (
-    <div className="flex flex-col sm:flex-row justify-center items-center">
+    <div className="flex flex-col m-6 w-4/5 sm:w-1/5 sm:flex-row justify-center items-center">
       <div className="p-3.5 w-1/2">
         <div className="w-20 hover:opacity-75 duration-200 cursor-pointer h-20 rounded-full flex items-center justify-center bg-gray-600">
           <h1 className="text-5xl text-gray-400 p-2.5">

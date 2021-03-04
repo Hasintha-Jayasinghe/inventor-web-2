@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { auth, db } from '../firebase';
 import { BaseUser } from '../types';
 import UserDetails from '../components/UserDetails';
+import Header from '../components/Header';
 
 const Home = () => {
   const history = useHistory();
@@ -40,12 +41,16 @@ const Home = () => {
   return (
     <div className="flex">
       <Sidebar />
-      <div className="p-1.5">
-        <UserDetails
-          email={user.email}
-          firstName={user.firstName}
-          lastName={user.lastName}
-        />
+      <div className="flex flex-col w-screen">
+        <Header />
+        <div className="p-1.5">
+          <UserDetails
+            email={user.email}
+            firstName={user.firstName}
+            lastName={user.lastName}
+          />
+          <h1 className="text-xl">New Activities: </h1>
+        </div>
       </div>
     </div>
   );
