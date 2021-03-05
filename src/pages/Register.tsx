@@ -76,6 +76,7 @@ const Register = () => {
                 parentEmail: values.parentEmail,
                 uid: userId,
                 level: 'member',
+                grade: grade,
               });
 
               history.replace('/');

@@ -48,6 +48,7 @@ const Home = () => {
             email={user.email}
             firstName={user.firstName}
             lastName={user.lastName}
+            level={user.level}
           />
           <h1 className="text-xl">New Activities: </h1>
         </div>

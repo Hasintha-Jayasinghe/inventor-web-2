@@ -4,13 +4,15 @@ import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import SliderImage from '../components/SliderImage';
 import { auth, db } from '../firebase';
-import { Club } from '../types';
+import { BaseUser, Club } from '../types';
 
 const ClubPage = () => {
   const { id } = useParams<{ id: string }>();
   const [club, setClub] = useState<Club>();
   const [image, setImage] = useState<string>('headerImg');
   const history = useHistory();
+  const [pres, setPres] = useState<BaseUser>();
+  const [vicePres, setVicePres] = useState<BaseUser>();
 
   useEffect(() => {
     setTimeout(() => {
@@ -26,6 +28,22 @@ const ClubPage = () => {
       .onSnapshot(snapshot => {
         const data = snapshot.data() as Club;
         setClub({ ...data, id: snapshot.id });
+
+        db.collection('users')
+          .doc(data.pres)
+          .get()
+          .then(val => {
+            const usr = val.data() as BaseUser;
+            setPres(usr);
+          });
+
+        db.collection('users')
+          .doc(data.vicePres)
+          .get()
+          .then(val => {
+            const usr = val.data() as BaseUser;
+            setVicePres(usr);
+          });
       });
   }, [id]);
 
@@ -109,6 +127,7 @@ const ClubPage = () => {
                   <button
                     onClick={() => {
                       const filtered = club.members.filter(val => {
+                        // eslint-disable-next-line
                         return !val.includes(auth.currentUser!.uid);
                       });
 
@@ -121,19 +140,50 @@ const ClubPage = () => {
                     Leave
                   </button>
                 ) : (
+                  <>
+                    <button
+                      onClick={() => {
+                        db.collection('clubs')
+                          .doc(id)
+                          .update({
+                            members: [...club!.members, auth.currentUser!.uid],
+                          });
+                      }}
+                      className="bg-green-500 p-2.5 m-3 text-white rounded outline-none hover:bg-green-600 font-bold"
+                    >
+                      Join
+                    </button>
+                  </>
+                )}
+                {auth.currentUser?.uid === club?.pres ||
+                auth.currentUser?.uid === club?.vicePres ? (
                   <button
                     onClick={() => {
-                      db.collection('clubs')
-                        .doc(id)
-                        .update({
-                          members: [...club!.members, auth.currentUser!.uid],
-                        });
+                      history.push(`/clubs/manage/${id}`);
                     }}
-                    className="bg-green-500 p-2.5 m-3 text-white rounded outline-none hover:bg-green-600 font-bold"
+                    className="bg-green-500 rounded p-2.5 m-3 text-white roudned outline-none hover:bg-green-600 font-bold"
                   >
-                    Join
+                    Manage
                   </button>
-                )}
+                ) : null}
+                <div className="mt-6 flex justify-around">
+                  <div className="flex flex-col">
+                    <h1>President:</h1>
+                    <div className="flex">
+                      <h1>
+                        {pres?.firstName} {pres?.lastName}
+                      </h1>
+                    </div>
+                  </div>
+                  <div className="flex flex-col">
+                    <h1>Vice President:</h1>
+                    <div className="flex">
+                      <h1>
+                        {vicePres?.firstName} {vicePres?.lastName}
+                      </h1>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

@@ -24,14 +24,12 @@ const Clubs = () => {
     db.collection('clubs')
       .orderBy('createdDate', 'asc')
       .onSnapshot(snapshot => {
-        snapshot.docs.map(doc =>
-          setClubs(
-            snapshot.docs.map(doc => {
-              const data = doc.data() as BaseClub;
+        setClubs(
+          snapshot.docs.map(doc => {
+            const data = doc.data() as BaseClub;
 
-              return { ...data, id: doc.id };
-            })
-          )
+            return { ...data, id: doc.id };
+          })
         );
       });
   }, [setClubs]);

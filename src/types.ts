@@ -22,4 +22,8 @@ export interface Club {
   image1: string;
   members: string[];
   image2: string;
+  pres: string;
+  vicePres: string;
+  editor: string;
+  secretary: string;
 }
