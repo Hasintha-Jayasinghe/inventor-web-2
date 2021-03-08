@@ -6,6 +6,7 @@ import { auth, db, storage } from '../firebase';
 import { BaseUser } from '../types';
 import * as Yup from 'yup';
 import firebase from 'firebase';
+import { v4 } from 'uuid';
 
 const RegisterSchema = Yup.object().shape({
   description: Yup.string().min(50).required('This is required'),
@@ -154,6 +155,52 @@ const RegisterClub = () => {
                                         image2: image2Url,
                                       });
 
+                                    const date = new Date();
+                                    const dateString = `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
+
+                                    await db
+                                      .collection('users')
+                                      .doc(pres.uid)
+                                      .update({
+                                        activites: firebase.firestore.FieldValue.arrayUnion(
+                                          {
+                                            title: `You're now the President of the ${values.name}!`,
+                                            msg: `You're now the President of the ${values.name}! You hold in you're hands the power to make or break this club`,
+                                            timestamp: dateString,
+                                            dismissed: false,
+                                            id: v4(),
+                                          }
+                                        ),
+                                      });
+                                    await db
+                                      .collection('users')
+                                      .doc(vicePres.uid)
+                                      .update({
+                                        activites: firebase.firestore.FieldValue.arrayUnion(
+                                          {
+                                            title: `You're now the Vice President of the ${values.name}!`,
+                                            msg: `You're now the Vice President of the ${values.name}! You hold in you're hands the power to make or break this club`,
+                                            timestamp: dateString,
+                                            dismissed: false,
+                                            id: v4(),
+                                          }
+                                        ),
+                                      });
+                                    await db
+                                      .collection('users')
+                                      .doc(edtr.uid)
+                                      .update({
+                                        activites: firebase.firestore.FieldValue.arrayUnion(
+                                          {
+                                            title: `You're now the Editor of the ${values.name}!`,
+                                            msg: `You're now the Editor of the ${values.name}! You hold in you're hands the power to make or break this club`,
+                                            timestamp: dateString,
+                                            dismissed: false,
+                                            id: v4(),
+                                          }
+                                        ),
+                                      });
+
                                     history.push('/');
                                   });
                               }
@@ -165,7 +212,7 @@ const RegisterClub = () => {
             }
           }}
         >
-          {({ values, errors, handleSubmit, handleChange }) => (
+          {({ values, errors, handleSubmit, handleChange, isSubmitting }) => (
             <form
               autoComplete="false"
               onSubmit={handleSubmit}
@@ -258,6 +305,7 @@ const RegisterClub = () => {
                   <button
                     className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     type="submit"
+                    disabled={isSubmitting}
                   >
                     Create Club
                   </button>

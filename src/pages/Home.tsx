@@ -16,10 +16,11 @@ const Home = () => {
     parentEmail: '',
     phone: '',
     uid: '',
+    activites: [],
   });
 
   useEffect(() => {
-    document.title = 'STPS Clubs';
+    document.title = 'Clubs Connect';
 
     if (!auth.currentUser) {
       history.push('/login');
@@ -29,9 +30,8 @@ const Home = () => {
   useEffect(() => {
     db.collection('users')
       .doc(auth.currentUser?.uid)
-      .get()
-      .then(val => {
-        const data = val.data() as BaseUser;
+      .onSnapshot(snapshot => {
+        const data = snapshot.data() as BaseUser;
         setUser(data);
       });
 
@@ -50,7 +50,31 @@ const Home = () => {
             lastName={user.lastName}
             level={user.level}
           />
-          <h1 className="text-xl">New Activities: </h1>
+          <div className="flex">
+            {user.activites.length === 0 ? (
+              <div>
+                <h1>No activites yet!</h1>
+              </div>
+            ) : (
+              <div className="grid grid-cols-3 grid-rows-3 gap-1 h-4/5 overflow-y-auto">
+                {user.activites.map((activity, idx) => {
+                  if (activity.dismissed) {
+                    return null;
+                  }
+
+                  return (
+                    <div
+                      key={idx}
+                      className="flex p-1.5 cursor-pointer flex-col bg-yellow-500 text-white w-96 rounded border"
+                    >
+                      <h1 className="text-lg font-bold">{activity.title}</h1>
+                      <p>{activity.msg}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

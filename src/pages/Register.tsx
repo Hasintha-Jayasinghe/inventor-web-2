@@ -58,7 +58,7 @@ const Register = () => {
             parentEmail: '',
           }}
           validationSchema={RegisterSchema}
-          onSubmit={async values => {
+          onSubmit={async (values, { setErrors }) => {
             // console.log('tests');
 
             try {
@@ -75,13 +75,15 @@ const Register = () => {
                 phone: values.phone,
                 parentEmail: values.parentEmail,
                 uid: userId,
-                level: 'member',
+                level: 'student',
                 grade: grade,
+                activites: [],
               });
 
               history.replace('/');
             } catch (err) {
               console.log(err);
+              setErrors({ email: err.message });
             }
           }}
         >

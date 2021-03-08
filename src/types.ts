@@ -6,6 +6,15 @@ export interface BaseUser {
   parentEmail: string;
   level: string;
   uid: string;
+  activites: Activity[];
+}
+
+export interface Activity {
+  title: string;
+  msg: string;
+  timestamp: string;
+  dismissed: boolean;
+  id: string;
 }
 
 export interface BaseClub {

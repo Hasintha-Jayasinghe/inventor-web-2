@@ -79,7 +79,12 @@ const ManageClub = () => {
           <div className="flex flex-col">
             <h1 className="text-3xl">{club?.name}</h1>
             <div className="mt-6">
-              <button className="p-0.5 w-48 rounded hover:bg-green-600 bg-green-500 border-none text-white">
+              <button
+                onClick={() => {
+                  history.push(`/clubs/manage/${clubId}/committee`);
+                }}
+                className="p-0.5 w-48 rounded hover:bg-green-600 bg-green-500 border-none text-white"
+              >
                 Committee
               </button>
             </div>
