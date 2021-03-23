@@ -89,6 +89,7 @@ const ManageClub = () => {
               </button>
             </div>
           </div>
+          <h1 className="text-2xl">Members ({members.length})</h1>
           {members.length !== 0 ? (
             <div className="flex h-4/6 overflow-y-auto mt-1.5 flex-col items-center justify-center">
               {members.map(member => {
@@ -97,9 +98,9 @@ const ManageClub = () => {
                     className="flex cursor-pointer items-center p-1.5 m-1.5 border-2 hover:shadow rounded w-4/6"
                     key={member.uid}
                   >
-                    <div className="flex w-3/6 items-center justify-around">
-                      <div className="w-20 hover:opacity-75 duration-200 cursor-pointer h-20 rounded-full flex items-center justify-center bg-gray-600">
-                        <h1 className="text-5xl text-gray-400 p-2.5">
+                    <div className="flex w-2/6 items-center">
+                      <div className="w-14 hover:opacity-75 duration-200 mr-14 cursor-pointer h-14 rounded-full flex items-center justify-center bg-gray-600">
+                        <h1 className="text-4xl text-gray-400 p-2.5">
                           {member.firstName.charAt(0)}
                           {member.lastName.charAt(0)}
                         </h1>

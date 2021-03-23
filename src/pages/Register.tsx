@@ -114,7 +114,7 @@ const Register = () => {
                 />
                 <small className="text-red-500">{errors.lastName}</small>
                 {/* This is the dropdown to select the grade */}
-                <div className="flex px-5 pb-5 font-bold">
+                <div className="flex px-5 pb-5 font-bold border border-black">
                   <label htmlFor="grade">Grade: </label>
                   <select
                     value={grade}
@@ -148,7 +148,7 @@ const Register = () => {
                 <small className="text-red-500">{errors.phone}</small>
                 <TextField
                   id="email"
-                  label="Email"
+                  label="School Email"
                   placeholder="manuga-1234@stps.edu.lk"
                   value={values.email}
                   type="text"
