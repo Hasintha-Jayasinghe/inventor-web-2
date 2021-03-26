@@ -1,11 +1,16 @@
 module.exports = {
-  purge: [],
-  darkMode: false, // or 'media' or 'class'
+  future: {
+    removeDeprecatedGapUtilities: true,
+    purgeLayersByDefault: true,
+  },
+  purge: ['./src/App.js'],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        dark: { raw: '(prefers-color-scheme: dark)' },
+      },
+    },
   },
-  variants: {
-    extend: {},
-  },
+  variants: {},
   plugins: [],
-}
+};
